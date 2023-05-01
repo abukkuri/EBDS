@@ -4,7 +4,7 @@ import random
 
 num_sims = 10
 mut = 0.05
-dose = 0#.6
+dose = 0.6
 
 g = 0.02
 phi = 0.02
@@ -22,7 +22,7 @@ strat_macro = []
 t_macro = []
 extinct = []
 
-def death_drug(current_strat,m1): #fitness analogous to death due to drug in our case
+def death_drug(current_strat,m1):
         return m1/(lam+b*current_strat)
 
 def run_this():
@@ -44,7 +44,7 @@ def run_this():
 
                 #broken into birth, death, switching
 
-                rates = [current_sens*s, current_sens*(m1/(lam+b*current_strat)                     +s*((current_sens+current_resist)/K)), current_sens*g, current_resist*r, current_resist*(current_sens+current_resist)/K, current_resist*phi]
+                rates = [current_sens*s, current_sens*(m1/(lam+b*current_strat)+s*((current_sens+current_resist)/K)), current_sens*g, current_resist*r, current_resist*(current_sens+current_resist)/K, current_resist*phi]
 
                 rate_sum = sum(rates)
 
@@ -88,7 +88,7 @@ def run_this():
                         resist.append(resist[-1] + 1)
                         strat.append(strat[-1])
 
-                #Resistant division event
+                #Resistant cell division event
                 elif rand * rate_sum > sum(rates[:3]) and rand * rate_sum <= sum(rates[:4]):
                         sens.append(sens[-1])
                         resist.append(resist[-1] + 1)
@@ -135,7 +135,7 @@ for i in range(1,num_sims):
 plt.legend()
 plt.grid(True)
 ax = plt.gca()
-#ax.axvspan(200, 800, facecolor=(0.5,0.5,0.5))
+ax.axvspan(200, 800, facecolor=(0.5,0.5,0.5))
 plt.ylabel('Population Size')
 plt.subplot(212)
 plt.plot(t_macro[0],strat_macro[0], c='k',lw=lwi)
@@ -143,7 +143,7 @@ for i in range(1, num_sims):
     plt.plot(t_macro[i],strat_macro[i], c='k',lw=lwi)
 plt.grid(True)
 ax = plt.gca()
-#ax.axvspan(200, 800, facecolor=(0.5,0.5,0.5))
+ax.axvspan(200, 800, facecolor=(0.5,0.5,0.5))
 plt.xlabel('Time')
 plt.ylabel('Drug Resistance')
 plt.tight_layout()
